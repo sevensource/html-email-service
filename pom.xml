@@ -1,0 +1,105 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>org.sevensource.parents</groupId>
+		<artifactId>parent-java</artifactId>
+		<version>0.9.8</version>
+	</parent>
+
+	<groupId>org.sevensource.commons</groupId>
+	<artifactId>html-email-service</artifactId>
+	<version>0.1.0</version>
+	<packaging>jar</packaging>
+
+	<description>
+		Library for creating and sending HTML email with Spring. Contains functionality to transform text to html, as well as html to text.
+	</description>
+
+	<properties>
+		<thymeleaf.version>2.0.14</thymeleaf.version>
+		<cglib.version>2.2.2</cglib.version>
+		<spring.version>3.1.2.RELEASE</spring.version>
+		<javax.mail.version>1.4.5</javax.mail.version>
+	</properties>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf-spring3</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib-nodep</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>net.htmlparser.jericho</groupId>
+			<artifactId>jericho-html</artifactId>
+			<version>3.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+
+	<developers>
+		<developer>
+			<id>pgaschuetz</id>
+			<email>philipp@sevensource.org</email>
+		</developer>
+	</developers>
+
+	<scm>
+		<url>http://github.com/sevensource/html-email-service</url>
+		<connection>scm:git:git@github.com:sevensource/html-email-service.git</connection>
+		<developerConnection>scm:git:git@github.com:sevensource/html-email-service.git</developerConnection>
+	  <tag>v0.1.0</tag>
+  </scm>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>SevenSource</name>
+		<url>http://www.sevensource.org/</url>
+	</organization>
+
+	<url>http://www.sevensource.org/</url>
+</project>
