@@ -1,7 +1,6 @@
 package org.sevensource.commons.email.html.service;
 
 import java.io.StringWriter;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -16,7 +15,6 @@ import org.sevensource.commons.email.html.EmailModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.context.VariablesMap;
