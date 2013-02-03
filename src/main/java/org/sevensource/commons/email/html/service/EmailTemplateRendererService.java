@@ -83,8 +83,15 @@ public class EmailTemplateRendererService {
 	
 	
 	/**
-	 * transforms plain text into HTML, mainly converting etities, links and line breaks
-	 * @param text
+	 * transforms plain text into HTML by 
+	 * <li>escaping HTML entities
+	 * <li>converting URLs to <a href> tags
+	 * <li>converting linebreaks to <br>
+	 * <li>surrounding the text with a valid HTML4 markup
+	 * 
+	 * @see StringEscapeUtils#escapeHtml4(String)
+	 * 
+	 * @param text the plain text to convert
 	 * @return
 	 */
 	public String textToHtml(String text) {
@@ -97,7 +104,10 @@ public class EmailTemplateRendererService {
 		text = matcher.replaceAll("<br />");
 		
 	    return "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">" + "\n" +
-	    		"<html><head></head><body>" + "\n" +
-	    		text + "</body></html>\n";
+	    		"<html><head>" + "\n" + 
+	    		"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />" + "\n" +
+	    		"</head><body>" + "\n" +
+	    		text + "\n" + 
+	    		"</body></html>" + "\n";
 	}
 }

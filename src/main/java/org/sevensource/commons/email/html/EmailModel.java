@@ -20,10 +20,11 @@ public class EmailModel {
 	
 	
 	private InternetAddress from;
+	private InternetAddress replyTo;
+	
 	private List<InternetAddress> to;
 	private List<InternetAddress> cc;
 	private List<InternetAddress> bcc;
-	private InternetAddress replyTo;
 	
 	private String subject;
 	
@@ -34,7 +35,7 @@ public class EmailModel {
 	
 	
 	/**
-	 * set the sender of the email
+	 * set the From address of the email
 	 * 
 	 * @param address a valid email address
 	 * @param personal the real world name of the sender (can be null)
@@ -43,6 +44,7 @@ public class EmailModel {
 	public void setFrom(String address, String personal) throws AddressException {
 		from = toInternetAddress(address, personal);
 	}
+	
 	
 	/**
 	 * sets the reply to address
@@ -163,9 +165,17 @@ public class EmailModel {
 	public String getText() {
 		return text;
 	}
-
+	
+	public void setText(String text) {
+		this.text = text;
+	}
+	
 	public String getHtml() {
 		return html;
+	}
+	
+	public void setHtml(String html) {
+		this.html = html;
 	}
 	
 	public DateTime getDateSent() {
