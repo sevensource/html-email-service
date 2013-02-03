@@ -1,4 +1,4 @@
-package org.sevensource.commons.email.html.spring;
+package org.sevensource.commons.email.html.configuration;
 
 import java.util.HashSet;
 import java.util.Set;
