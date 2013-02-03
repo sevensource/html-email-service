@@ -46,7 +46,7 @@ public class EmailTemplateRendererService {
 	 * @param emailModel
 	 * @param model
 	 * @param locale
-	 * @return
+	 * @return rendered output
 	 */
 	public String render(String templateName, EmailModel emailModel, Map<String, ?> model, Locale locale) {
 		
@@ -71,7 +71,7 @@ public class EmailTemplateRendererService {
 	/**
 	 * Converts HTML to plain text using Jericho HTML parser
 	 *  
-	 * @see http://jericho.htmlparser.net
+	 * @see <a href="http://jericho.htmlparser.net">http://jericho.htmlparser.net</a>
 	 * @param html valid html Content
 	 * @return a plain text representation of the HTML content (line breaks, list items, tables, etc. converted)
 	 */
@@ -85,14 +85,14 @@ public class EmailTemplateRendererService {
 	/**
 	 * transforms plain text into HTML by 
 	 * <li>escaping HTML entities
-	 * <li>converting URLs to <a href> tags
-	 * <li>converting linebreaks to <br>
+	 * <li>converting URLs to &lt;a href&gt; tags
+	 * <li>converting linebreaks to &lt;br&gt;
 	 * <li>surrounding the text with a valid HTML4 markup
 	 * 
 	 * @see StringEscapeUtils#escapeHtml4(String)
 	 * 
 	 * @param text the plain text to convert
-	 * @return
+	 * @return a HTMLified version of the text
 	 */
 	public String textToHtml(String text) {
 		text = StringEscapeUtils.escapeHtml4(text);
