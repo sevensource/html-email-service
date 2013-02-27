@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -11,6 +12,7 @@ import javax.mail.internet.InternetAddress;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.InputStreamSource;
 
 public class EmailModel {
 	
@@ -18,6 +20,7 @@ public class EmailModel {
 	
 	private final static String SENDER_ENCODING = "UTF-8";
 	
+	private String envelopeFrom = null;
 	
 	private InternetAddress from;
 	private InternetAddress replyTo;
@@ -32,6 +35,38 @@ public class EmailModel {
 	
 	private String text;
 	private String html;
+	
+	private List<AttachmentModel> attachments;
+	
+	public class AttachmentModel {
+		private final String filename;
+		private final InputStreamSource inputStreamSource;
+		
+		public AttachmentModel(String filename, InputStreamSource inputStreamSource) {
+			this.filename = filename;
+			this.inputStreamSource = inputStreamSource;
+		}
+		public String getFilename() {
+			return filename;
+		}
+		public InputStreamSource getInputStreamSource() {
+			return inputStreamSource;
+		}
+	}
+	
+	
+	/**
+	 * set the SMTP Envelope address of the email
+	 * 
+	 * @param address a valid email address
+	 * @param personal the real world name of the sender (can be null)
+	 * @throws AddressException in case of an invalid email address
+	 */
+	public void setEnvelopeFrom(String address) throws AddressException {
+		InternetAddress inetAddress = toInternetAddress(address, "");
+		inetAddress.validate();
+		this.envelopeFrom = inetAddress.getAddress();
+	}
 	
 	
 	/**
@@ -99,6 +134,23 @@ public class EmailModel {
 	}
 	
 	/**
+	 * adds an attachment
+	 * @param	filename the filename to be displayed in the email.
+	 * 			The content type will be gathered from the filenames extension.
+	 * @param 	source the content of the attachment
+	 * 
+	 * @see 	InputStreamSource
+	 */
+	public void addAttachment(String filename, InputStreamSource source) {
+		if(attachments == null) {
+			attachments = new ArrayList<EmailModel.AttachmentModel>();
+		}
+		attachments.add( new AttachmentModel(filename, source) );
+	}
+	
+	
+	
+	/**
 	 * converts an email address and a name to an {@link InternetAddress}
 	 * @param address a valid email address
 	 * @param personal the real world name of the sender (can be null)
@@ -138,6 +190,11 @@ public class EmailModel {
 		this.subject = subject;
 	}
 
+	
+	public String getEnvelopeFrom() {
+		return envelopeFrom;
+	}
+	
 	public InternetAddress getFrom() {
 		return from;
 	}
@@ -152,6 +209,10 @@ public class EmailModel {
 
 	public List<InternetAddress> getBcc() {
 		return bcc == null ? Collections.<InternetAddress>emptyList() : bcc;
+	}
+	
+	public List<AttachmentModel> getAttachments() {
+		return attachments == null ? Collections.<AttachmentModel>emptyList() : attachments;
 	}
 
 	public InternetAddress getReplyTo() {

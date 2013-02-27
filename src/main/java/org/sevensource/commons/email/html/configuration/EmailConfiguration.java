@@ -20,7 +20,7 @@ public class EmailConfiguration {
 	
 	@Bean
 	@Inject
-	public JavaMailSenderImpl mailSender(Session session) {
+	public JavaMailSender mailSender(Session session) {
 		
 		//add a callback to configure container provided mail sessions
 		configureSession(session);
@@ -39,13 +39,10 @@ public class EmailConfiguration {
 	 * @param session
 	 */
 	protected void configureSession(Session session) {
-		
-		//session.setDebug(false);
-		
 		if(! session.getProperties().contains("mail.smtp.allow8bitmime")) {
 			session.getProperties().put("mail.smtp.allow8bitmime", "true");
 		}
-		
+
 //		if(! session.getProperties().contains("mail.smtp.from")) {
 //			session.getProperties().put("mail.smtp.from", smtp envelope sender);
 //		}
