@@ -8,11 +8,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.lang3.StringUtils;
-import org.sevensource.commons.email.html.EmailException;
 import org.sevensource.commons.email.html.EmailModel;
 import org.sevensource.commons.email.html.EmailModel.AttachmentModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -36,7 +36,7 @@ public class EmailService {
 	}
 	
 	
-	public void sendMail(final EmailModel emailModel) throws EmailException {
+	public void sendMail(final EmailModel emailModel) throws MailException {
 		
 		if (logger.isInfoEnabled()) {
 			logger.info("Sending email from {} to {}", emailModel.getFrom(), addressListToString(emailModel.getTo()));

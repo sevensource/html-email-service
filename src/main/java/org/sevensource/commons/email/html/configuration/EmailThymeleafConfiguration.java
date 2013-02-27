@@ -3,8 +3,6 @@ package org.sevensource.commons.email.html.configuration;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.inject.Inject;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.thymeleaf.TemplateEngine;
@@ -14,14 +12,16 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 import org.thymeleaf.templateresolver.UrlTemplateResolver;
 
 @Configuration
-public class ThymeleafConfiguration {
+public class EmailThymeleafConfiguration {
 	
 	private boolean templateCachable = false;
-	private long templateCacheTTL = 1;
+	private Long templateCacheTTL = TemplateResolver.DEFAULT_CACHE_TTL_MS;
 	private String templateMode = "HTML5";
 	
+	public final static String TEMPLATE_ENGINE_BEAN_NAME = "emailTemplateEngine";
 	
-	@Bean
+	
+	@Bean(name=TEMPLATE_ENGINE_BEAN_NAME)
 	public TemplateEngine templateEngine() {
 		TemplateEngine templateEngine = new TemplateEngine();
 		templateEngine.setTemplateResolvers( getTemplateResolver() );
@@ -41,10 +41,33 @@ public class ThymeleafConfiguration {
 	}
 	
 	private TemplateResolver configureTemplateResolver(TemplateResolver templateResolver, int order) {
-		templateResolver.setCacheable(templateCachable);
-		templateResolver.setTemplateMode(templateMode);
-		templateResolver.setCacheTTLMs(templateCacheTTL);
+		templateResolver.setCacheable( isTemplateCachable() );
+		templateResolver.setTemplateMode( getTemplateMode() );
+		templateResolver.setCacheTTLMs( getTemplateCacheTTL() );
 		templateResolver.setOrder(order);
 		return templateResolver;
+	}
+	
+	/**
+	 * @see TemplateResolver#setCacheTTLMs(Long)
+	 */
+	protected Long getTemplateCacheTTL() {
+		return templateCacheTTL;
+	}
+	
+	/**
+	 * 
+	 * @see TemplateResolver#setTemplateMode(String)
+	 */
+	protected String getTemplateMode() {
+		return templateMode;
+	}
+	
+	/**
+	 * 
+	 * @see TemplateResolver#setCacheable(boolean)
+	 */
+	public boolean isTemplateCachable() {
+		return templateCachable;
 	}
 }
