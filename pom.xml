@@ -9,7 +9,7 @@
 
 	<groupId>org.sevensource.commons</groupId>
 	<artifactId>html-email-service</artifactId>
-	<version>0.3.1-SNAPSHOT</version>
+	<version>0.3.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<description>
