@@ -4,12 +4,12 @@
 	<parent>
 		<groupId>org.sevensource.parents</groupId>
 		<artifactId>parent-java</artifactId>
-		<version>0.9.9</version>
+		<version>0.9.15</version>
 	</parent>
 
 	<groupId>org.sevensource.commons</groupId>
 	<artifactId>html-email-service</artifactId>
-	<version>0.2.2</version>
+	<version>0.3.0</version>
 	<packaging>jar</packaging>
 
 	<description>
@@ -64,6 +64,39 @@
 		</dependency>
 	</dependencies>
 
+	<build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.5</version>
+                    <configuration>
+                        <mavenExecutorId>forked-path</mavenExecutorId>
+                        <useReleaseProfile>false</useReleaseProfile>
+                        <arguments>${arguments} -Psonatype-oss-release</arguments>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <pushChanges>false</pushChanges>
+                        <localCheckout>true</localCheckout>
+                        <tagNameFormat>v@{project.version}</tagNameFormat>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.maven.scm</groupId>
+                            <artifactId>maven-scm-api</artifactId>
+                            <version>1.9</version>
+                        </dependency>
+                        <dependency>
+                              <groupId>org.apache.maven.scm</groupId>
+                              <artifactId>maven-scm-provider-gitexe</artifactId>
+                              <version>1.9</version>
+                    </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
 
 	<developers>
 		<developer>
@@ -76,7 +109,7 @@
 		<url>http://github.com/sevensource/html-email-service</url>
 		<connection>scm:git:git@github.com:sevensource/html-email-service.git</connection>
 		<developerConnection>scm:git:git@github.com:sevensource/html-email-service.git</developerConnection>
-	  <tag>v0.2.2</tag>
+	  <tag>v0.3.0</tag>
   </scm>
 
 	<licenses>
