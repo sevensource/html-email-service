@@ -4,12 +4,12 @@
 	<parent>
 		<groupId>org.sevensource.parents</groupId>
 		<artifactId>parent-java</artifactId>
-		<version>0.9.9</version>
+		<version>0.9.15</version>
 	</parent>
 
 	<groupId>org.sevensource.commons</groupId>
 	<artifactId>html-email-service</artifactId>
-	<version>0.2.3-SNAPSHOT</version>
+	<version>0.3.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<description>
