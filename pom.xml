@@ -9,7 +9,7 @@
 
 	<groupId>org.sevensource.commons</groupId>
 	<artifactId>html-email-service</artifactId>
-	<version>0.3.2-SNAPSHOT</version>
+	<version>0.4.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<description>
@@ -17,6 +17,7 @@
 	</description>
 
 	<properties>
+		<java.version>1.6</java.version>
 	</properties>
 
 
