@@ -9,7 +9,7 @@
 
 	<groupId>org.sevensource.commons</groupId>
 	<artifactId>html-email-service</artifactId>
-	<version>0.3.1</version>
+	<version>0.4.0</version>
 	<packaging>jar</packaging>
 
 	<description>
@@ -17,6 +17,7 @@
 	</description>
 
 	<properties>
+		<java.version>1.6</java.version>
 	</properties>
 
 
@@ -110,7 +111,7 @@
 		<url>http://github.com/sevensource/html-email-service</url>
 		<connection>scm:git:git@github.com:sevensource/html-email-service.git</connection>
 		<developerConnection>scm:git:git@github.com:sevensource/html-email-service.git</developerConnection>
-	  <tag>v0.3.1</tag>
+	  <tag>v0.4.0</tag>
   </scm>
 
 	<licenses>
