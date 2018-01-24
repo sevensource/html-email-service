@@ -38,10 +38,11 @@ public class EmailTemplateRendererService {
 	/**
 	 * renders a template and returns its output
 	 *
-	 * @param templateName
-	 * @param emailModel
-	 * @param model
-	 * @param locale
+	 * @param templateName the templateName to be resolved by Thymeleafs templateResolver
+	 * @param emailModel the emailModel
+	 * @param model additional model
+	 * @param locale the locale
+	 *
 	 * @return rendered output
 	 */
 	public String render(String templateName, EmailModel emailModel, Map<String, Object> model, Locale locale) {
@@ -70,12 +71,13 @@ public class EmailTemplateRendererService {
 
 	/**
 	 * transforms plain text into HTML by
+	 * <ul>
 	 * <li>escaping HTML entities
 	 * <li>converting URLs to &lt;a href&gt; tags
 	 * <li>converting linebreaks to &lt;br&gt;
 	 * <li>surrounding the text with a valid HTML4 markup
+	 * </ul>
 	 *
-	 * @see StringEscapeUtils#escapeHtml4(String)
 	 *
 	 * @param text the plain text to convert
 	 * @return a HTMLified version of the text

@@ -31,7 +31,7 @@ public class ConfigurableJavaMailSenderConfiguration {
 
 	/**
 	 * override to configure JavaMail {@link Session}
-	 * @param session
+	 * @param session the session
 	 */
 	protected void configureSession(Session session) {
 		if(! session.getProperties().contains(MAIL_SMTP_ALLOW8BITMIME)) {
@@ -51,7 +51,7 @@ public class ConfigurableJavaMailSenderConfiguration {
 
 	/**
 	 * override to set custom properties on {@link JavaMailSender}
-	 * @param mailSender
+	 * @param mailSender the sender
 	 */
 	protected void configureJavaMailSender(JavaMailSenderImpl mailSender) {
 		mailSender.setDefaultEncoding(StandardCharsets.UTF_8.name());

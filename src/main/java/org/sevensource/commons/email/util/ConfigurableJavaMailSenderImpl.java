@@ -11,7 +11,7 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 /**
- * Use a {@link SMTPMessage} instead of Springs SmartMimeMessage
+ * Use a com.sun.mail.smtp.SMTPMessage instead of Springs SmartMimeMessage
  *
  * @author pgaschuetz
  *

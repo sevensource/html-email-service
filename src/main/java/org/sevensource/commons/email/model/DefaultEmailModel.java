@@ -50,7 +50,6 @@ public class DefaultEmailModel implements EmailModel {
 	 * set the SMTP Envelope address of the email
 	 *
 	 * @param address a valid email address
-	 * @param personal the real world name of the sender (can be null)
 	 * @throws AddressException in case of an invalid email address
 	 */
 	public void setEnvelopeFrom(String address) throws AddressException {
@@ -76,9 +75,9 @@ public class DefaultEmailModel implements EmailModel {
 	/**
 	 * sets the reply to address
 	 *
-	 * @param address
-	 * @param personal
-	 * @throws AddressException
+	 * @param address a valid email address
+	 * @param personal the real world name of the sender (can be null)
+	 * @throws AddressException in case of an invalid email address
 	 */
 	public void setReplyTo(String address, String personal) throws AddressException {
 		replyTo = toInternetAddress(address, personal);
@@ -87,9 +86,9 @@ public class DefaultEmailModel implements EmailModel {
 	/**
 	 * adds a recipient (To)
 	 *
-	 * @param address
-	 * @param personal
-	 * @throws AddressException
+	 * @param address a valid email address
+	 * @param personal the real world name of the sender (can be null)
+	 * @throws AddressException in case of an invalid email address
 	 */
 	public void addTo(String address, String personal) throws AddressException {
 		if(to == null) {
@@ -101,9 +100,9 @@ public class DefaultEmailModel implements EmailModel {
 	/**
 	 * adds a CC recipient
 	 *
-	 * @param address
-	 * @param personal
-	 * @throws AddressException
+	 * @param address a valid email address
+	 * @param personal the real world name of the sender (can be null)
+	 * @throws AddressException in case of an invalid email address
 	 */
 	public void addCc(String address, String personal) throws AddressException {
 		if(cc == null) {
@@ -114,9 +113,10 @@ public class DefaultEmailModel implements EmailModel {
 
 	/**
 	 * adds a BCC recipient
-	 * @param address
-	 * @param personal
-	 * @throws AddressException
+	 *
+	 * @param address a valid email address
+	 * @param personal the real world name of the sender (can be null)
+	 * @throws AddressException in case of an invalid email address
 	 */
 	public void addBcc(String address, String personal) throws AddressException {
 		if(bcc == null) {
@@ -127,9 +127,9 @@ public class DefaultEmailModel implements EmailModel {
 
 	/**
 	 * adds an attachment
+	 *
 	 * @param	filename the filename to be displayed in the email.
 	 * @param 	source the content of the attachment
-	 *
 	 */
 	public void addAttachment(String filename, Resource source) {
 		if(attachments == null) {
@@ -140,9 +140,9 @@ public class DefaultEmailModel implements EmailModel {
 
 	/**
 	 * adds an inline attachment
-	 * @param	cid
-	 * @param 	source the content of the attachment
 	 *
+	 * @param	cid the CID reference
+	 * @param 	source the content of the attachment
 	 */
 	public void addAttachmentInline(String cid, Resource source) {
 		if(attachments == null) {
@@ -153,9 +153,10 @@ public class DefaultEmailModel implements EmailModel {
 
 	/**
 	 * converts an email address and a name to an {@link InternetAddress}
+	 *
 	 * @param address a valid email address
 	 * @param personal the real world name of the sender (can be null)
-	 * @return
+	 * @return the converted InternetAddress
 	 * @throws AddressException in case of an invalid email address
 	 */
 	private InternetAddress toInternetAddress(String address, String personal) throws AddressException {
@@ -194,15 +195,9 @@ public class DefaultEmailModel implements EmailModel {
 		return customHeaders;
 	}
 
-	/**
-	 * sets the subject of the email
-	 *
-	 * @param subject
-	 */
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-
 
 	@Override
 	public String getEnvelopeFrom() {
