@@ -25,13 +25,7 @@ public class DefaultTemplateEngineFactory implements TemplateEngineFactory {
 	@Override
 	public TemplateEngine getTemplateEngine() {
         final TemplateEngine templateEngine = new TemplateEngine();
-
-        // Resolver for TEXT emails
-        //templateEngine.addTemplateResolver(textTemplateResolver());
-
         templateEngine.addTemplateResolver(defaultTemplateResolver());
-
-        //templateEngine.addTemplateResolver(stringTemplateResolver());
         return templateEngine;
 	}
 
@@ -47,13 +41,4 @@ public class DefaultTemplateEngineFactory implements TemplateEngineFactory {
 		resolver.setOrder(1);
 		return resolver;
 	}
-
-//    private ITemplateResolver stringTemplateResolver() {
-//        final StringTemplateResolver templateResolver = new StringTemplateResolver();
-//        templateResolver.setOrder(Integer.valueOf(3));
-//        // No resolvable pattern, will simply process as a String template everything not previously matched
-//        templateResolver.setTemplateMode("HTML5");
-//        templateResolver.setCacheable(false);
-//        return templateResolver;
-//    }
 }
