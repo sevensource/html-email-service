@@ -14,5 +14,4 @@ public class ReusingTemplateEngineFactory implements TemplateEngineFactory {
 	public TemplateEngine getTemplateEngine() {
 		return templateEngine;
 	}
-
 }
