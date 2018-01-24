@@ -1,11 +1,16 @@
+[![GitHub Tag](https://img.shields.io/github/tag/sevensource/html-email-service.svg?maxAge=3600)](https://github.com/sevensource/html-email-service/tags)
+[![Maven Central](https://img.shields.io/maven-central/v/org.sevensource.commons.mail/html-email-service.svg?maxAge=3600)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.sevensource.commons.mail%22%20AND%20a%3A%22html-email-service%22)
+[![License](https://img.shields.io/github/license/sevensource/html-email-service.svg)](https://github.com/sevensource/html-email-service/blob/master/LICENSE)
+
 # html-email-service
 
 Wrapper library for creating and sending HTML email with Spring.
+=======
+
  * uses Thymeleaf for templating
  * can transform text to html
  * can transform html to text
- * attachments (inline and attachment) 
- * 
+ * attachments (inline and attachment)
 
 ## Example
 ```java
