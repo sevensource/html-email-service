@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1 th:text="#{heading}">salutation</h1>
+
+<p>Thanks for your order <span th:text="${ordernumber}"></span></p>
+
+<p>
+	This email was sent to
+  	<span th:text="${emailModel.to[0].personal}"></span>
+  	(<span th:text="${emailModel.to[0].address}"></span>)
+</p>
+</body>
+</html>

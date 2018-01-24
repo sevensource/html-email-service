@@ -1,23 +1,63 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
-	<parent>
-		<groupId>org.sevensource.parents</groupId>
-		<artifactId>parent-java</artifactId>
-		<version>0.9.15</version>
-	</parent>
-
-	<groupId>org.sevensource.commons</groupId>
+	<groupId>org.sevensource.mail</groupId>
 	<artifactId>html-email-service</artifactId>
-	<version>0.4.1-SNAPSHOT</version>
+	<version>0.9.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
+	<name>HTML email service</name>
+	<url>http://www.github.com/sevensource/html-email-service</url>	
 	<description>
 		Library for creating and sending HTML email with Spring. Contains functionality to transform text to html, as well as html to text.
 	</description>
+	
+	<developers>
+		<developer>
+			<name>pgaschuetz</name>
+			<organizationUrl>http://github.com/pgaschuetz</organizationUrl>
+		</developer>
+	</developers>
+
+	<issueManagement>
+		<url>https://github.com/sevensource/html-email-service/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
+	
+	<scm>
+		<connection>scm:git:git://github.com/sevensource/html-email-service.git</connection>
+		<developerConnection>scm:git:git@github.com:sevensource/html-email-service.git</developerConnection>
+		<url>http://github.com/sevensource/html-email-service/tree/master</url>
+	</scm>
+	
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<licenses>
+		<license>
+			<name>GNU General Public License (GPL)</name>
+			<url>http://www.gnu.org/licenses/gpl.txt</url>
+		</license>
+	</licenses>
+
+
+	<inceptionYear>2013</inceptionYear>
+
+	<organization>
+		<name>SevenSource, pgaschuetz</name>
+		<url>http://www.github.com/sevensource</url>
+	</organization>
 
 	<properties>
-		<java.version>1.6</java.version>
+		<javaVersion>1.8</javaVersion>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+		<spring.version>4.3.14.RELEASE</spring.version>
+		<thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
 	</properties>
 
 
@@ -25,106 +65,199 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
+			<version>${spring.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.thymeleaf</groupId>
 			<artifactId>thymeleaf</artifactId>
+			<version>${thymeleaf.version}</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>org.thymeleaf</groupId>
 			<artifactId>thymeleaf-spring4</artifactId>
-			<version>2.1.3.RELEASE</version>
+			<version>${thymeleaf.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>net.htmlparser.jericho</groupId>
 			<artifactId>jericho-html</artifactId>
-			<version>3.3</version>
+			<version>3.4</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
 		</dependency>
-
+		
 		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>javax.mail-api</artifactId>
+		    <version>1.6.0</version>
 		</dependency>
-
+		
 		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<scope>provided</scope>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>javax.mail</artifactId>
+		    <version>1.6.0</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.jvnet.mock-javamail</groupId>
+		    <artifactId>mock-javamail</artifactId>
+		    <version>1.9</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>2.6.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-core</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
 	<build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>2.5</version>
-                    <configuration>
-                        <mavenExecutorId>forked-path</mavenExecutorId>
-                        <useReleaseProfile>false</useReleaseProfile>
-                        <arguments>${arguments} -Psonatype-oss-release</arguments>
-                        <autoVersionSubmodules>true</autoVersionSubmodules>
-                        <pushChanges>false</pushChanges>
-                        <localCheckout>true</localCheckout>
-                        <tagNameFormat>v@{project.version}</tagNameFormat>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.apache.maven.scm</groupId>
-                            <artifactId>maven-scm-api</artifactId>
-                            <version>1.9</version>
-                        </dependency>
-                        <dependency>
-                              <groupId>org.apache.maven.scm</groupId>
-                              <artifactId>maven-scm-provider-gitexe</artifactId>
-                              <version>1.9</version>
-                    </dependency>
-                    </dependencies>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
 
-	<developers>
-		<developer>
-			<id>pgaschuetz</id>
-			<email>philipp@sevensource.org</email>
-		</developer>
-	</developers>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+			</plugin>
 
-	<scm>
-		<url>http://github.com/sevensource/html-email-service</url>
-		<connection>scm:git:git@github.com:sevensource/html-email-service.git</connection>
-		<developerConnection>scm:git:git@github.com:sevensource/html-email-service.git</developerConnection>
-	  <tag>HEAD</tag>
-  </scm>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
 
-	<licenses>
-		<license>
-			<name>The Apache Software License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-		</license>
-	</licenses>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
 
-	<organization>
-		<name>SevenSource</name>
-		<url>http://www.sevensource.org/</url>
-	</organization>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.7.0</version>
+					<configuration>
+						<source>${javaVersion}</source>
+						<target>${javaVersion}</target>
+					</configuration>
+				</plugin>
 
-	<url>http://www.sevensource.org/</url>
+				<plugin>
+					<groupId>external.atlassian.jgitflow</groupId>
+					<artifactId>jgitflow-maven-plugin</artifactId>
+					<version>1.0-m5.1</version>
+					<configuration>
+						<arguments>-Dmaven.install.skip=true</arguments>
+						<flowInitContext>
+							<versionTagPrefix>v</versionTagPrefix>
+						</flowInitContext>
+						<enableSshAgent>true</enableSshAgent>
+						<noDeploy>true</noDeploy>
+						<pushReleases>true</pushReleases>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.20.1</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>3.0.1</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>3.0.0</version>
+					<executions>
+						<execution>
+							<id>attach-javadocs</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>1.6</version>
+					<executions>
+						<execution>
+							<id>sign-artifacts</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>sign</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.sonatype.plugins</groupId>
+					<artifactId>nexus-staging-maven-plugin</artifactId>
+					<version>1.6.8</version>
+					<extensions>true</extensions>
+					<configuration>
+						<serverId>ossrh</serverId>
+						<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+						<autoReleaseAfterClose>true</autoReleaseAfterClose>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>
