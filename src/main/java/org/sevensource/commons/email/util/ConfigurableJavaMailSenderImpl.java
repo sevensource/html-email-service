@@ -5,8 +5,6 @@ import java.io.InputStream;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
@@ -17,9 +15,6 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
  *
  */
 public class ConfigurableJavaMailSenderImpl extends JavaMailSenderImpl {
-
-	private final static Logger logger = LoggerFactory.getLogger(ConfigurableJavaMailSenderImpl.class);
-
 
 	public ConfigurableJavaMailSenderImpl(Session session) {
 		super();
