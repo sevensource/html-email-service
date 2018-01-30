@@ -39,6 +39,13 @@ public class EmailSenderService {
 	}
 
 
+	/**
+	 *
+	 * @param emailModel the model describing the email to send
+	 *
+	 * @throws MailException throws {@link MailParseException}, {@link MailAuthenticationException}, {@link MailSendException} on error
+	 *
+	 */
 	public void sendMail(final EmailModel emailModel) throws MailException {
 
 		if (logger.isDebugEnabled()) {
