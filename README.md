@@ -4,12 +4,11 @@
 
 # html-email-service
 
-Wrapper library for creating and sending HTML email with Spring.
-=======
+## Wrapper library for creating and sending HTML email with Spring.
 
  * uses Thymeleaf for templating
- * can transform text to html
- * can transform html to text
+ * transforms text to html
+ * transforms html to text
  * attachments (inline and attachment)
 
 ## Example
@@ -43,7 +42,9 @@ public class EmailServiceConfiguration {
 		return new EmailTemplateRendererService(factory);
 	}
 }
+```
 
+```java
 public void sendmail() {
 	DefaultEmailModel model = new DefaultEmailModel();
 	model.setFrom("foo@bar.com", "Foobar");
