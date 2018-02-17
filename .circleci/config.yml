@@ -38,7 +38,8 @@ jobs:
               ls -la
               mkdir cd
               ls -la
-              openssl aes-256-cbc -a -A -d -k "${GPG_SIGNING_SECRET}" <<<${GPG_SIGNING_DATA} > cd/codesigning.asc
+              echo "${GPG_SIGNING_DATA}" > cd/codesigning.asc.enc
+              openssl aes-256-cbc -a -A -d -k "${GPG_SIGNING_SECRET}" -in cd/codesigning.asc.enc -out cd/codesigning.asc
               ls -la
               ls -la cd
               gpg --fast-import cd/codesigning.asc;
