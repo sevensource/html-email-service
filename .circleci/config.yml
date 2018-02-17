@@ -1,11 +1,6 @@
 version: 2
 jobs:
   build:
-    branches:
-      only:
-        - master
-        - develop
-  
     docker:
       - image: circleci/openjdk:8-jdk
 
