@@ -38,6 +38,7 @@ jobs:
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              env
               mkdir cd
               openssl aes-256-cbc -a -A -d -k ${GPG_SIGNING_SECRET} <<<${GPG_SIGNING_DATA} > cd/codesigning.asc
               gpg --fast-import cd/codesigning.asc
