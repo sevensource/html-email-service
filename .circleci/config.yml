@@ -34,16 +34,7 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               set -x
-              env
-              ls -la
-              mkdir cd
-              ls -la
-              echo "${GPG_SIGNING_DATA}" > cd/codesigning.asc.enc
-              ls -la cd
-              cat cd/codesigning.asc.enc
-              openssl aes-256-cbc -a -A -d -k "${GPG_SIGNING_SECRET}" -in cd/codesigning.asc.enc -out cd/codesigning.asc
-              ls -la
-              ls -la cd
+              openssl aes-256-cbc -a -A -d -md sha256 -k "${GPG_SIGNING_SECRET}" -out cd/codesigning.asc <<<${GPG_SIGNING_DATA}
               gpg --fast-import cd/codesigning.asc;
               mvn -s .circleci/settings.xml -DskipTests deploy
             fi
