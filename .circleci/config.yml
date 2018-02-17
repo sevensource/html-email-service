@@ -1,7 +1,6 @@
 version: 2
 jobs:
   build:
-    context: org-global
     branches:
       only:
         - master
@@ -45,4 +44,10 @@ jobs:
               gpg --fast-import cd/codesigning.asc
               mvn -s .circleci/settings.xml -DskipTests deploy
             fi
-      
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build:
+        context: org-global
