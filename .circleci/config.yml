@@ -1,0 +1,46 @@
+version: 2
+jobs:
+  build:
+    branches:
+      only:
+        - master
+        - develop
+  
+    docker:
+      - image: circleci/openjdk:8-jdk
+
+    #working_directory: ~/html-email-service
+
+    environment:
+      # Customize the JVM maximum heap limit
+      MAVEN_OPTS: -Xmx3200m
+    
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "pom.xml" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+        
+      - run: mvn integration-test
+      - run: mvn package
+      
+      - deploy:
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              mkdir cd
+              openssl aes-256-cbc -a -A -d -k ${GPG_SIGNING_KEY} <<<${GPG_SIGNING_DATA} > cd/codesigning.asc
+              gpg --fast-import cd/codesigning.asc
+              mvn -s .circleci/settings.xml -DskipTests deploy
+            fi
+      
