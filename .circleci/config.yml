@@ -45,6 +45,7 @@ jobs:
               mvn -s .circleci/settings.xml -DskipTests deploy
             fi
 
+
 workflows:
   version: 2
   build_and_test:
