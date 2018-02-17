@@ -37,7 +37,8 @@ jobs:
               mkdir cd
               openssl aes-256-cbc -a -A -d -md sha256 -k "${GPG_SIGNING_SECRET}" -out cd/codesigning.asc <<<${GPG_SIGNING_DATA}
               gpg --batch --fast-import cd/codesigning.asc
-              export GPG_TTY=$(tty)
+              echo allow-loopback-pinentry >> ~/.gnupg/gpg-agent.conf
+              echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
               mvn -s .circleci/settings.xml -DskipTests deploy
             fi
 
