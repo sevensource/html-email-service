@@ -4,20 +4,14 @@ jobs:
     docker:
       - image: circleci/openjdk:8-jdk
 
-    #working_directory: ~/html-email-service
-
     environment:
-      # Customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx3200m
     
     steps:
       - checkout
-
-      # Download and cache dependencies
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "pom.xml" }}
-          # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
       - run: mvn dependency:go-offline
@@ -28,18 +22,16 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
         
       - run: mvn integration-test
-      - run: mvn package
       
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              set -x
               mkdir cd
               openssl aes-256-cbc -a -A -d -md sha256 -k "${GPG_SIGNING_SECRET}" -out cd/codesigning.asc <<<${GPG_SIGNING_DATA}
               gpg --batch --fast-import cd/codesigning.asc
               echo allow-loopback-pinentry >> ~/.gnupg/gpg-agent.conf
               echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
-              mvn -s .circleci/settings.xml -DskipTests deploy
+              mvn -s .circleci/settings.xml -DskipTests package deploy
             fi
 
 workflows:
