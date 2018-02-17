@@ -33,11 +33,14 @@ jobs:
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              env;
-              mkdir cd;
-              openssl aes-256-cbc -a -A -d -k "${GPG_SIGNING_SECRET}" <<<${GPG_SIGNING_DATA} > cd/codesigning.asc;
-              ls -la;
-              ls -la cd;
+              set -x
+              env
+              ls -la
+              mkdir cd
+              ls -la
+              openssl aes-256-cbc -a -A -d -k "${GPG_SIGNING_SECRET}" <<<${GPG_SIGNING_DATA} > cd/codesigning.asc
+              ls -la
+              ls -la cd
               gpg --fast-import cd/codesigning.asc;
               mvn -s .circleci/settings.xml -DskipTests deploy
             fi
