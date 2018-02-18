@@ -132,10 +132,7 @@ public class DefaultEmailModel implements EmailModel {
 	 * @param 	source the content of the attachment
 	 */
 	public void addAttachment(String filename, Resource source) {
-		if(attachments == null) {
-			attachments = new ArrayList<>();
-		}
-		attachments.add( new DefaultAttachmentModel(filename, source, false) );
+		addAttachment(filename, source, false);
 	}
 
 	/**
@@ -145,10 +142,14 @@ public class DefaultEmailModel implements EmailModel {
 	 * @param 	source the content of the attachment
 	 */
 	public void addAttachmentInline(String cid, Resource source) {
+		addAttachment(cid, source, true);
+	}
+
+	private void addAttachment(String id, Resource resource, boolean inline) {
 		if(attachments == null) {
 			attachments = new ArrayList<>();
 		}
-		attachments.add( new DefaultAttachmentModel(cid, source, true) );
+		attachments.add( new DefaultAttachmentModel(id, resource, inline) );
 	}
 
 	/**
