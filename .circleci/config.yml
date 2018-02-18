@@ -6,6 +6,7 @@ jobs:
 
     environment:
       MAVEN_OPTS: -Xmx3200m
+      CC_TEST_REPORTER_ID: ec8d64ba1cee48e83dfa9e6a987eb3e9868271901bd53c5420da2d1453d7059e
     
     steps:
       - checkout
@@ -22,6 +23,17 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
         
       - run: mvn integration-test
+      
+      - deploy:
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "develop" ]; then
+              curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+              chmod +x ./cc-test-reporter
+              ./cc-test-reporter before-build
+              cp target/site/jacoco-ut/jacoco.xml src/main/java/
+              cd src/main/java/
+              ../../../cc-test-reporter after-build
+            fi
       
       - deploy:
           command: |
