@@ -11,9 +11,6 @@ public class HtmlUtilTest {
 		String test = "<>ü\"& a  b\nnewline";
 		String result = HtmlUtil.escapeToHtml(test);
 
-		System.out.println(result);
 		assertThat(result).isEqualTo("&lt;&gt;&#252;&quot;&amp; a &nbsp;b<br/>newline");
-
-
 	}
 }
