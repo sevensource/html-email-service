@@ -110,6 +110,6 @@ public class EmailSenderServiceTest {
 
 		Mailbox mbx = Mailbox.get(emailModel.getTo().get(0));
 		Message msg = mbx.get(0);
-		assertThat(msg.getHeader("Sender")).isEqualTo("test@test.com");
+		assertThat(msg.getHeader("Sender")).containsExactly("test@test.com");
 	}
 }
