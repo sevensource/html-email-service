@@ -7,6 +7,6 @@ plugins:
   fixme:
     enabled: true
   checkstyle:
-    enabled: true
+    enabled: false
   pmd:
     enabled: true

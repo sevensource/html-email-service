@@ -26,8 +26,11 @@ public class HtmlMimeMessagePreparator implements MimeMessagePreparator {
 
 	@Override
 	public void prepare(MimeMessage mimeMessage) throws Exception {
+
+		final boolean isMultipart = emailModel.getText() != null && emailModel.getHtml() != null;
+
 		final MimeMessageHelper messageHelper =
-				new MimeMessageHelper(mimeMessage, isMultipart(emailModel), emailModel.getEncoding());
+				new MimeMessageHelper(mimeMessage, isMultipart, emailModel.getEncoding());
 
 		setSenders(messageHelper, mimeMessage, emailModel);
 		setRecipients(messageHelper, emailModel);
@@ -37,7 +40,7 @@ public class HtmlMimeMessagePreparator implements MimeMessagePreparator {
 			messageHelper.setSubject(emailModel.getSubject());
 		}
 
-		if(isMultipart(emailModel)) {
+		if(isMultipart) {
 			messageHelper.setText(emailModel.getText(), emailModel.getHtml());
 		} else if(! StringUtils.isEmpty(emailModel.getText())) {
 			messageHelper.setText(emailModel.getText(), false);
@@ -68,7 +71,6 @@ public class HtmlMimeMessagePreparator implements MimeMessagePreparator {
 				SunMailSmtpMessageUtil.setEnvelopeFromIfPossible(mimeMessage, envelopeFrom.getAddress());
 			}
 		}
-
 
 		//set sender
 		if(emailModel.getFrom() != null) {
@@ -114,9 +116,5 @@ public class HtmlMimeMessagePreparator implements MimeMessagePreparator {
 				mimeMessage.addHeader(e.getKey(), MimeUtility.encodeText(e.getValue()));
 			}
 		}
-	}
-
-	private static boolean isMultipart(EmailModel emailModel) {
-		return emailModel.getText() != null && emailModel.getHtml() != null;
 	}
 }
