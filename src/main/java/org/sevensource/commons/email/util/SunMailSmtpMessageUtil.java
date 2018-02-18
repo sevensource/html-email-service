@@ -45,7 +45,6 @@ public class SunMailSmtpMessageUtil {
 				logger.error(msg);
 				throw new IllegalArgumentException(msg);
 			}
-
 		} else {
 			simpleConstructor = inputStreamConstructor = null;
 		}
@@ -59,7 +58,7 @@ public class SunMailSmtpMessageUtil {
 	}
 
 	private static void assertAvailable() {
-		if(! smtpMessageAvailable) {
+		if(! isAvailable()) {
 			final String msg = String.format("%s cannot be found on classpath", SUN_MAIL_SMTPMESSAGE);
 			throw new IllegalStateException(msg);
 		}
@@ -82,10 +81,8 @@ public class SunMailSmtpMessageUtil {
 
 		final Class<?> mimeMessageClazz = mimeMessage.getClass();
 		if(ClassUtils.isAssignable(smtpMessageClass, mimeMessageClazz)) {
-			final Method setEnvelopeFromMethod = ReflectionUtils.findMethod(mimeMessageClazz, "setEnvelopeFrom");
-			if(setEnvelopeFromMethod != null) {
-				ReflectionUtils.invokeMethod(setEnvelopeFromMethod, mimeMessage, envelopeFrom);
-			}
+			final Method setEnvelopeFromMethod = ReflectionUtils.findMethod(mimeMessageClazz, "setEnvelopeFrom", String.class);
+			ReflectionUtils.invokeMethod(setEnvelopeFromMethod, mimeMessage, envelopeFrom);
 		}
 	}
 }

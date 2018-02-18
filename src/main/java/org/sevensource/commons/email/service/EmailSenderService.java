@@ -53,8 +53,10 @@ public class EmailSenderService {
 			throw e;
 		} catch(MailAuthenticationException e) {
 			logger.error("Failed to authenticate against mail server: {}", e.getMessage(), e);
+			throw e;
 		} catch(MailSendException e) {
 			logger.error("Failed to send message: {}", e.getMessage());
+			throw e;
 		}
 	}
 }

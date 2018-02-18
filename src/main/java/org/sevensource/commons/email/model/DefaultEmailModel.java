@@ -132,20 +132,20 @@ public class DefaultEmailModel implements EmailModel {
 	 * @param 	source the content of the attachment
 	 */
 	public void addAttachment(String filename, Resource source) {
-		addAttachment(filename, source, false);
+		doAddAttachment(filename, source, false);
 	}
 
 	/**
 	 * adds an inline attachment
 	 *
-	 * @param	cid the CID reference
+	 * @param	cid the CID reference (must be ending with a known file extension)
 	 * @param 	source the content of the attachment
 	 */
 	public void addAttachmentInline(String cid, Resource source) {
-		addAttachment(cid, source, true);
+		doAddAttachment(cid, source, true);
 	}
 
-	private void addAttachment(String id, Resource resource, boolean inline) {
+	private void doAddAttachment(String id, Resource resource, boolean inline) {
 		if(attachments == null) {
 			attachments = new ArrayList<>();
 		}

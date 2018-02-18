@@ -14,6 +14,7 @@ import org.sevensource.commons.email.model.EmailModel;
 import org.sevensource.commons.email.util.SunMailSmtpMessageUtil;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 public class HtmlMimeMessagePreparator implements MimeMessagePreparator {
@@ -27,7 +28,10 @@ public class HtmlMimeMessagePreparator implements MimeMessagePreparator {
 	@Override
 	public void prepare(MimeMessage mimeMessage) throws Exception {
 
-		final boolean isMultipart = emailModel.getText() != null && emailModel.getHtml() != null;
+		final boolean isMultipart =
+				(! StringUtils.isEmpty(emailModel.getText()) &&
+				! StringUtils.isEmpty(emailModel.getHtml())) ||
+				! CollectionUtils.isEmpty(emailModel.getAttachments());
 
 		final MimeMessageHelper messageHelper =
 				new MimeMessageHelper(mimeMessage, isMultipart, emailModel.getEncoding());
@@ -40,11 +44,14 @@ public class HtmlMimeMessagePreparator implements MimeMessagePreparator {
 			messageHelper.setSubject(emailModel.getSubject());
 		}
 
-		if(isMultipart) {
+		final boolean hasText = !StringUtils.isEmpty(emailModel.getText());
+		final boolean hasHtml = !StringUtils.isEmpty(emailModel.getHtml());
+
+		if(hasText && hasHtml) {
 			messageHelper.setText(emailModel.getText(), emailModel.getHtml());
-		} else if(! StringUtils.isEmpty(emailModel.getText())) {
+		} else if(hasText) {
 			messageHelper.setText(emailModel.getText(), false);
-		} else if(! StringUtils.isEmpty(emailModel.getHtml())) {
+		} else if(hasHtml) {
 			messageHelper.setText(emailModel.getHtml(), true);
 		} else {
 			messageHelper.setText("", false);
@@ -53,7 +60,12 @@ public class HtmlMimeMessagePreparator implements MimeMessagePreparator {
 		if(emailModel.getAttachments() != null) {
 			for(AttachmentModel attachment : emailModel.getAttachments()) {
 				if(attachment.isInline()) {
-					messageHelper.addInline(attachment.getFilename(), attachment.getResource());
+					final String contentType = messageHelper.getFileTypeMap().getContentType(attachment.getFilename());
+					if(contentType == null) {
+						throw new IllegalArgumentException("Cannot parse contentType from filename " + attachment.getFilename());
+					}
+
+					messageHelper.addInline(attachment.getFilename(), attachment.getResource(), contentType);
 				} else {
 					messageHelper.addAttachment(attachment.getFilename(), attachment.getResource());
 				}
