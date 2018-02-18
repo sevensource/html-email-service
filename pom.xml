@@ -10,7 +10,7 @@
 	
 	<groupId>org.sevensource.mail</groupId>
 	<artifactId>html-email-service</artifactId>
-	<version>0.9.3-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>HTML email service</name>
