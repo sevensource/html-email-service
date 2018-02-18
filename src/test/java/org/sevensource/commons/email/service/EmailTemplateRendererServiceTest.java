@@ -58,7 +58,7 @@ public class EmailTemplateRendererServiceTest {
 	public void text_to_html_works() {
 		String text = ">more\nhttp://www.test.com";
 		String html = service.textToHtml(text);
-		assertThat(html).contains("&gt;more&lt;br/&gt;<a href=\"http://www.test.com\">http://www.test.com</a>");
+		assertThat(html).contains("&gt;more<br/><a href=\"http://www.test.com\">http://www.test.com</a>");
 	}
 
 	@Test

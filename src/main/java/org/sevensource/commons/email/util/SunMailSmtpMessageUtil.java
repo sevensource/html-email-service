@@ -29,7 +29,9 @@ public class SunMailSmtpMessageUtil {
 		Class<?> clazz = null;
 		try {
 			clazz = ClassUtils.forName(SUN_MAIL_SMTPMESSAGE, SunMailSmtpMessageUtil.class.getClassLoader());
-		} catch (ClassNotFoundException e) {}
+		} catch (ClassNotFoundException e) {
+			// do nothing
+		}
 
 		smtpMessageClass = clazz;
 		smtpMessageAvailable = smtpMessageClass != null;
@@ -41,13 +43,14 @@ public class SunMailSmtpMessageUtil {
 			if(simpleConstructor == null || inputStreamConstructor == null) {
 				final String msg = String.format("%s is missing expected constructors", SUN_MAIL_SMTPMESSAGE);
 				logger.error(msg);
-				throw new RuntimeException(msg);
+				throw new IllegalArgumentException(msg);
 			}
-
 		} else {
 			simpleConstructor = inputStreamConstructor = null;
 		}
 	}
+
+	private SunMailSmtpMessageUtil() {}
 
 
 	public static boolean isAvailable() {
@@ -55,7 +58,7 @@ public class SunMailSmtpMessageUtil {
 	}
 
 	private static void assertAvailable() {
-		if(! smtpMessageAvailable) {
+		if(! isAvailable()) {
 			final String msg = String.format("%s cannot be found on classpath", SUN_MAIL_SMTPMESSAGE);
 			throw new IllegalStateException(msg);
 		}
@@ -78,10 +81,8 @@ public class SunMailSmtpMessageUtil {
 
 		final Class<?> mimeMessageClazz = mimeMessage.getClass();
 		if(ClassUtils.isAssignable(smtpMessageClass, mimeMessageClazz)) {
-			final Method setEnvelopeFromMethod = ReflectionUtils.findMethod(mimeMessageClazz, "setEnvelopeFrom");
-			if(setEnvelopeFromMethod != null) {
-				ReflectionUtils.invokeMethod(setEnvelopeFromMethod, mimeMessage, envelopeFrom);
-			}
+			final Method setEnvelopeFromMethod = ReflectionUtils.findMethod(mimeMessageClazz, "setEnvelopeFrom", String.class);
+			ReflectionUtils.invokeMethod(setEnvelopeFromMethod, mimeMessage, envelopeFrom);
 		}
 	}
 }
