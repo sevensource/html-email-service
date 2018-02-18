@@ -8,10 +8,12 @@ public class HtmlUtilTest {
 
 	@Test
 	public void works() {
-		String test = "<ü";
+		String test = "<>ü\"& a  b\nnewline";
 		String result = HtmlUtil.escapeToHtml(test);
 
-		assertThat(result).doesNotContain("<");
-		assertThat(result).doesNotContain("ü");
+		System.out.println(result);
+		assertThat(result).isEqualTo("&lt;&gt;&#252;&quot;&amp; a &nbsp;b<br/>newline");
+
+
 	}
 }

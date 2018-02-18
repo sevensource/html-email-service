@@ -42,7 +42,7 @@ public class HtmlUtil {
 					sb.append("&gt;");
 				} else if (c == '\n') {
 					// Handle Newline
-	                sb.append("&lt;br/&gt;");
+	                sb.append("<br/>");
 				} else {
 	                int ci = 0xffff & c;
 	                if (ci < 160 ) {
