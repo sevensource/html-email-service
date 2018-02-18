@@ -45,17 +45,10 @@ public class EmailSenderService {
 
 		final MimeMessagePreparator preparator = new HtmlMimeMessagePreparator(emailModel);
 
-		// send
 		try {
 			javaMailSender.send(preparator);
-		} catch(MailParseException e) {
-			logger.error("Failed to parse message", e);
-			throw e;
-		} catch(MailAuthenticationException e) {
-			logger.error("Failed to authenticate against mail server: {}", e.getMessage(), e);
-			throw e;
-		} catch(MailSendException e) {
-			logger.error("Failed to send message: {}", e.getMessage());
+		} catch(MailException e) {
+			logger.error("Sending failed", e);
 			throw e;
 		}
 	}
