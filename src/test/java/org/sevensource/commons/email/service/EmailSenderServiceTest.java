@@ -13,6 +13,7 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -111,5 +112,16 @@ public class EmailSenderServiceTest {
 		Mailbox mbx = Mailbox.get(emailModel.getTo().get(0));
 		Message msg = mbx.get(0);
 		assertThat(msg.getHeader("Sender")).containsExactly("test@test.com");
+	}
+
+	@Test
+	public void setting_from_works() throws IOException, MessagingException {
+		emailModel.setFrom("test@test.com", "");
+		emailSenderService.sendMail(emailModel);
+
+		Mailbox mbx = Mailbox.get(emailModel.getTo().get(0));
+		Message msg = mbx.get(0);
+		assertThat(msg.getFrom()).hasSize(1);
+		assertThat(msg.getFrom()[0]).isEqualTo(new InternetAddress("test@test.com", ""));
 	}
 }
