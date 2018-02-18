@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Message;
+import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.AddressException;
@@ -123,5 +124,90 @@ public class EmailSenderServiceTest {
 		Message msg = mbx.get(0);
 		assertThat(msg.getFrom()).hasSize(1);
 		assertThat(msg.getFrom()[0]).isEqualTo(new InternetAddress("test@test.com", ""));
+	}
+
+	@Test
+	public void setting_to_works() throws IOException, MessagingException {
+		emailModel.getTo().clear();
+		emailModel.addTo("test@test.com", "Test");
+		emailSenderService.sendMail(emailModel);
+
+		Mailbox mbx = Mailbox.get(emailModel.getTo().get(0));
+		Message msg = mbx.get(0);
+		assertThat(msg.getRecipients(RecipientType.TO)).hasSize(1);
+		assertThat(msg.getRecipients(RecipientType.CC)).isNull();
+		assertThat(msg.getRecipients(RecipientType.BCC)).isNull();
+		assertThat(msg.getRecipients(RecipientType.TO)[0]).isEqualTo(new InternetAddress("test@test.com", "Test"));
+	}
+
+	@Test
+	public void setting_cc_works() throws IOException, MessagingException {
+		emailModel.getTo().clear();
+		emailModel.addTo("test@test.com", "Test");
+		emailModel.addCc("test2@test.com", "Test2");
+		emailSenderService.sendMail(emailModel);
+
+		Mailbox mbx = Mailbox.get(emailModel.getTo().get(0));
+		Message msg = mbx.get(0);
+		assertThat(msg.getRecipients(RecipientType.TO)).hasSize(1);
+		assertThat(msg.getRecipients(RecipientType.CC)).hasSize(1);
+		assertThat(msg.getRecipients(RecipientType.BCC)).isNull();
+		assertThat(msg.getRecipients(RecipientType.TO)[0]).isEqualTo(new InternetAddress("test@test.com", "Test"));
+		assertThat(msg.getRecipients(RecipientType.CC)[0]).isEqualTo(new InternetAddress("test2@test.com", "Test2"));
+
+		mbx = Mailbox.get(emailModel.getCc().get(0));
+		msg = mbx.get(0);
+		assertThat(msg.getRecipients(RecipientType.TO)).hasSize(1);
+		assertThat(msg.getRecipients(RecipientType.CC)).hasSize(1);
+		assertThat(msg.getRecipients(RecipientType.BCC)).isNull();
+		assertThat(msg.getRecipients(RecipientType.TO)[0]).isEqualTo(new InternetAddress("test@test.com", "Test"));
+		assertThat(msg.getRecipients(RecipientType.CC)[0]).isEqualTo(new InternetAddress("test2@test.com", "Test2"));
+	}
+
+	@Test
+	public void setting_bcc_works() throws IOException, MessagingException {
+		emailModel.getTo().clear();
+		emailModel.addTo("test@test.com", "Test");
+		emailModel.addBcc("test2@test.com", "Test2");
+		emailSenderService.sendMail(emailModel);
+
+		Mailbox mbx = Mailbox.get(emailModel.getTo().get(0));
+		Message msg = mbx.get(0);
+		assertThat(msg.getRecipients(RecipientType.TO)).hasSize(1);
+		assertThat(msg.getRecipients(RecipientType.CC)).isNull();
+		assertThat(msg.getRecipients(RecipientType.BCC)).hasSize(1);
+		assertThat(msg.getRecipients(RecipientType.TO)[0]).isEqualTo(new InternetAddress("test@test.com", "Test"));
+		assertThat(msg.getRecipients(RecipientType.BCC)[0]).isEqualTo(new InternetAddress("test2@test.com", "Test2"));
+
+		mbx = Mailbox.get(emailModel.getBcc().get(0));
+		msg = mbx.get(0);
+		assertThat(msg.getRecipients(RecipientType.TO)).hasSize(1);
+		assertThat(msg.getRecipients(RecipientType.CC)).isNull();
+		assertThat(msg.getRecipients(RecipientType.BCC)).hasSize(1);
+		assertThat(msg.getRecipients(RecipientType.TO)[0]).isEqualTo(new InternetAddress("test@test.com", "Test"));
+		assertThat(msg.getRecipients(RecipientType.BCC)[0]).isEqualTo(new InternetAddress("test2@test.com", "Test2"));
+	}
+
+	@Test
+	public void setting_reply_to_works() throws IOException, MessagingException {
+		emailModel.setReplyTo("no-reply@test.com", "NoReply");
+		emailSenderService.sendMail(emailModel);
+
+		Mailbox mbx = Mailbox.get(emailModel.getTo().get(0));
+		Message msg = mbx.get(0);
+		assertThat(msg.getRecipients(RecipientType.TO)).hasSize(1);
+		assertThat(msg.getRecipients(RecipientType.TO)[0]).isEqualTo(new InternetAddress("test@test.com", "Test"));
+
+		assertThat(msg.getReplyTo()[0]).isEqualTo(new InternetAddress("no-reply@test.com", "NoReply"));
+	}
+
+	@Test
+	public void setting_subject_works() throws IOException, MessagingException {
+		emailModel.setSubject("Hello World");
+		emailSenderService.sendMail(emailModel);
+
+		Mailbox mbx = Mailbox.get(emailModel.getTo().get(0));
+		Message msg = mbx.get(0);
+		assertThat(msg.getSubject()).isEqualTo("Hello World");
 	}
 }

@@ -51,6 +51,8 @@ public class SunMailSmtpMessageUtil {
 		}
 	}
 
+	private SunMailSmtpMessageUtil() {}
+
 
 	public static boolean isAvailable() {
 		return smtpMessageAvailable;
