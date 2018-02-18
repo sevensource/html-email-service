@@ -31,21 +31,21 @@ public class ConfigurableJavaMailSenderConfiguration {
 
 	/**
 	 * override to configure JavaMail {@link Session}
+	 *
+	 * in order to specify a default, override this method and add
+	 *
+	 * <code>
+	 * if(! session.getProperties().contains("mail.smtp.from")) {
+	 *   session.getProperties().put("mail.smtp.from", "bounces@foobar.com");
+	 * }
+	 * </code>
+	 *
 	 * @param session the session
 	 */
 	protected void configureSession(Session session) {
 		if(! session.getProperties().contains(MAIL_SMTP_ALLOW8BITMIME)) {
 			session.getProperties().put(MAIL_SMTP_ALLOW8BITMIME, "true");
 		}
-
-		/*
-		 * e.g.
-		 *
-		 * if(! session.getProperties().contains("mail.smtp.from")) {
-		 *   session.getProperties().put("mail.smtp.from", "bounces@foobar.com");
-		 * }
-		 *
-		 */
 	}
 
 

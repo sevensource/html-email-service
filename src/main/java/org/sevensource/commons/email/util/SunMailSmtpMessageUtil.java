@@ -29,7 +29,9 @@ public class SunMailSmtpMessageUtil {
 		Class<?> clazz = null;
 		try {
 			clazz = ClassUtils.forName(SUN_MAIL_SMTPMESSAGE, SunMailSmtpMessageUtil.class.getClassLoader());
-		} catch (ClassNotFoundException e) {}
+		} catch (ClassNotFoundException e) {
+			// do nothing
+		}
 
 		smtpMessageClass = clazz;
 		smtpMessageAvailable = smtpMessageClass != null;
@@ -41,7 +43,7 @@ public class SunMailSmtpMessageUtil {
 			if(simpleConstructor == null || inputStreamConstructor == null) {
 				final String msg = String.format("%s is missing expected constructors", SUN_MAIL_SMTPMESSAGE);
 				logger.error(msg);
-				throw new RuntimeException(msg);
+				throw new IllegalArgumentException(msg);
 			}
 
 		} else {

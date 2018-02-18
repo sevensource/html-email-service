@@ -83,7 +83,6 @@ public class HtmlMimeMessagePreparator implements MimeMessagePreparator {
 	}
 
 	private static void setRecipients(MimeMessageHelper messageHelper, EmailModel emailModel) throws MessagingException {
-		// set recipients
 		if(emailModel.getTo() != null) {
 			for(InternetAddress to : emailModel.getTo()) {
 				messageHelper.addTo(to);
@@ -104,12 +103,8 @@ public class HtmlMimeMessagePreparator implements MimeMessagePreparator {
 	}
 
 	private static void setAdditionalHeaders(MimeMessageHelper messageHelper, MimeMessage mimeMessage, EmailModel emailModel) throws MessagingException, UnsupportedEncodingException {
-		// set default headers
-		if(emailModel.getDateSent() == null) {
-			messageHelper.setSentDate(new Date());
-		} else {
-			messageHelper.setSentDate(Date.from(emailModel.getDateSent().toInstant()));
-		}
+		final Date sentDate = (emailModel.getDateSent() == null) ? new Date() : Date.from(emailModel.getDateSent().toInstant());
+		messageHelper.setSentDate(sentDate);
 
 		if(emailModel.getCustomHeaders() != null) {
 			for(Entry<String, String> e : emailModel.getCustomHeaders().entrySet()) {

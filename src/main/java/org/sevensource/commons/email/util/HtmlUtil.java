@@ -2,8 +2,10 @@ package org.sevensource.commons.email.util;
 
 public class HtmlUtil {
 
+	private HtmlUtil() {};
+
 	public static String escapeToHtml(String string) {
-	    StringBuffer sb = new StringBuffer(string.length());
+	    StringBuilder sb = new StringBuilder(string.length());
 	    // true if last char was blank
 	    boolean lastWasBlankChar = false;
 	    int len = string.length();
@@ -49,7 +51,7 @@ public class HtmlUtil {
 					} else {
 	                    // Not 7 Bit use the unicode system
 	                    sb.append("&#");
-	                    sb.append(new Integer(ci).toString());
+	                    sb.append(Integer.toString(ci));
 	                    sb.append(';');
 	                    }
 	                }
