@@ -102,4 +102,14 @@ public class EmailSenderServiceTest {
 		msg.writeTo(baos);
 		System.out.println(baos.toString());
 	}
+
+	@Test
+	public void setting_envelope_from_works() throws IOException, MessagingException {
+		emailModel.setEnvelopeFrom("test@test.com");
+		emailSenderService.sendMail(emailModel);
+
+		Mailbox mbx = Mailbox.get(emailModel.getTo().get(0));
+		Message msg = mbx.get(0);
+		assertThat(msg.getHeader("Sender")).isEqualTo("test@test.com");
+	}
 }
