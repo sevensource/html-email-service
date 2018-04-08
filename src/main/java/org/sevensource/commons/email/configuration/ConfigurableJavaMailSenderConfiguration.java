@@ -28,7 +28,6 @@ public class ConfigurableJavaMailSenderConfiguration {
 		return mailSender;
 	}
 
-
 	/**
 	 * override to configure JavaMail {@link Session}
 	 *
@@ -48,7 +47,6 @@ public class ConfigurableJavaMailSenderConfiguration {
 		}
 	}
 
-
 	/**
 	 * override to set custom properties on {@link JavaMailSender}
 	 * @param mailSender the sender
@@ -56,5 +54,4 @@ public class ConfigurableJavaMailSenderConfiguration {
 	protected void configureJavaMailSender(JavaMailSenderImpl mailSender) {
 		mailSender.setDefaultEncoding(StandardCharsets.UTF_8.name());
 	}
-
 }
