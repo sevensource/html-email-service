@@ -1,6 +1,8 @@
 [![GitHub Tag](https://img.shields.io/github/tag/sevensource/html-email-service.svg?maxAge=3600)](https://github.com/sevensource/html-email-service/tags)
 [![Maven Central](https://img.shields.io/maven-central/v/org.sevensource.mail/html-email-service.svg?maxAge=3600)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.sevensource.mail%22%20AND%20a%3A%22html-email-service%22)
 [![License](https://img.shields.io/github/license/sevensource/html-email-service.svg)](https://github.com/sevensource/html-email-service/blob/master/LICENSE)
+[![Build Status](https://img.shields.io/circleci/project/github/sevensource/html-email-service.svg)](https://circleci.com/gh/sevensource/html-email-service)
+
 
 # html-email-service
 
