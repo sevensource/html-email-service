@@ -70,7 +70,7 @@ public class EmailSenderServiceTest {
 	@Before
 	public void before() throws AddressException {
 		TemplateEngineFactory factory = new DefaultTemplateEngineFactory(appctx);
-		renderService = new EmailTemplateRendererService(factory);
+		renderService = new EmailTemplateRendererService(appctx, factory);
 
 		emailModel = new DefaultEmailModel();
 		emailModel.addTo("test@test.com", "Test Recipient");

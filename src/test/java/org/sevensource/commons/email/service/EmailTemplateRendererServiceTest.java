@@ -35,7 +35,7 @@ public class EmailTemplateRendererServiceTest {
 	@Before
 	public void before() {
 		TemplateEngineFactory factory = new DefaultTemplateEngineFactory(appctx);
-		service = new EmailTemplateRendererService(factory);
+		service = new EmailTemplateRendererService(appctx, factory);
 	}
 
 	@Test

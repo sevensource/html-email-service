@@ -12,8 +12,10 @@ import org.sevensource.commons.email.template.TemplateEngineFactory;
 import org.sevensource.commons.email.util.HtmlUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
+import org.thymeleaf.spring4.expression.ThymeleafEvaluationContext;
 
 import net.htmlparser.jericho.Source;
 
@@ -29,10 +31,12 @@ public class EmailTemplateRendererService {
 	private final static Pattern NEWLINE_TO_BR_PATTERN = Pattern.compile("\\r?\\n");
 
 	private final TemplateEngineFactory templateEngineFactory;
+	private final ApplicationContext applicationContext;
 
 	@Inject
-	public EmailTemplateRendererService(TemplateEngineFactory templateEngineFactory) {
+	public EmailTemplateRendererService(ApplicationContext ctx, TemplateEngineFactory templateEngineFactory) {
 		this.templateEngineFactory = templateEngineFactory;
+		this.applicationContext = ctx;
 	}
 
 	/**
@@ -52,6 +56,10 @@ public class EmailTemplateRendererService {
 		}
 
 		final Context context = new Context(locale);
+
+        context.setVariable(ThymeleafEvaluationContext.THYMELEAF_EVALUATION_CONTEXT_CONTEXT_VARIABLE_NAME,
+                new ThymeleafEvaluationContext(applicationContext, null));
+
 		context.setVariables(model);
 		context.setVariable(THYMELEAF_EMAIL_MODEL_NAME, emailModel);
 		return templateEngineFactory.getTemplateEngine().process(templateName, context);
