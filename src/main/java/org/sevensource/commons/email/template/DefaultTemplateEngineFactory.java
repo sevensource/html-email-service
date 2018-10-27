@@ -4,7 +4,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.springframework.context.ApplicationContext;
 import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 
 public class DefaultTemplateEngineFactory implements TemplateEngineFactory {
 
