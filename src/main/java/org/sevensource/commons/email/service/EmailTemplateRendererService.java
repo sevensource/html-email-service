@@ -14,8 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.context.Context;
-import org.thymeleaf.spring4.expression.ThymeleafEvaluationContext;
+import org.thymeleaf.IEngineConfiguration;
+import org.thymeleaf.context.ExpressionContext;
+import org.thymeleaf.spring5.expression.ThymeleafEvaluationContext;
 
 import net.htmlparser.jericho.Source;
 
@@ -55,7 +56,8 @@ public class EmailTemplateRendererService {
 			logger.debug("Rendering template [{}] for recipient [{}]", templateName, emailModel.getTo());
 		}
 
-		final Context context = new Context(locale);
+		final IEngineConfiguration engineConfiguration = templateEngineFactory.getTemplateEngine().getConfiguration();
+		final ExpressionContext context = new ExpressionContext(engineConfiguration, locale);
 
         context.setVariable(ThymeleafEvaluationContext.THYMELEAF_EVALUATION_CONTEXT_CONTEXT_VARIABLE_NAME,
                 new ThymeleafEvaluationContext(applicationContext, null));
