@@ -80,8 +80,8 @@
 		
 		<slf4j.version>1.7.25</slf4j.version>
 		
-		<spring.version>5.1.1.RELEASE</spring.version>
-		<thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
+		<spring.version>5.1.2.RELEASE</spring.version>
+		<thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
 	</properties>
 
 
@@ -119,13 +119,20 @@
 		<dependency>
 		    <groupId>javax.mail</groupId>
 		    <artifactId>javax.mail-api</artifactId>
-		    <version>1.6.0</version>
+		    <version>1.6.2</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-indexer</artifactId>
+			<version>${spring.version}</version>
+			<optional>true</optional>
 		</dependency>
 		
 		<dependency>
