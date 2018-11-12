@@ -10,7 +10,7 @@
 	
 	<groupId>org.sevensource.mail</groupId>
 	<artifactId>html-email-service</artifactId>
-	<version>1.0.4</version>
+	<version>1.0.5</version>
 	<packaging>jar</packaging>
 
 	<name>HTML email service</name>
@@ -126,13 +126,6 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-indexer</artifactId>
-			<version>${spring.version}</version>
-			<optional>true</optional>
 		</dependency>
 		
 		<dependency>
