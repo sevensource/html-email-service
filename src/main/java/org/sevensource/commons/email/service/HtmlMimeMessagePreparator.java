@@ -44,6 +44,27 @@ public class HtmlMimeMessagePreparator implements MimeMessagePreparator {
 			messageHelper.setSubject(emailModel.getSubject());
 		}
 
+		setBody(emailModel, messageHelper);
+		setAttachments(emailModel, messageHelper);
+	}
+	
+	private static void setAttachments(EmailModel emailModel, MimeMessageHelper messageHelper) throws MessagingException {
+		if(emailModel.getAttachments() != null) {
+			for(AttachmentModel attachment : emailModel.getAttachments()) {
+				if(attachment.isInline()) {
+					final String contentType = messageHelper.getFileTypeMap().getContentType(attachment.getFilename());
+					if(contentType == null) {
+						throw new IllegalArgumentException("Cannot parse contentType from filename " + attachment.getFilename());
+					}
+	
+					messageHelper.addInline(attachment.getFilename(), attachment.getResource(), contentType);
+				} else {
+					messageHelper.addAttachment(attachment.getFilename(), attachment.getResource());
+				}
+			}
+		}
+	}
+	private static void setBody(EmailModel emailModel, MimeMessageHelper messageHelper) throws MessagingException {
 		final boolean hasText = !StringUtils.isEmpty(emailModel.getText());
 		final boolean hasHtml = !StringUtils.isEmpty(emailModel.getHtml());
 
@@ -55,21 +76,6 @@ public class HtmlMimeMessagePreparator implements MimeMessagePreparator {
 			messageHelper.setText(emailModel.getHtml(), true);
 		} else {
 			messageHelper.setText("", false);
-		}
-
-		if(emailModel.getAttachments() != null) {
-			for(AttachmentModel attachment : emailModel.getAttachments()) {
-				if(attachment.isInline()) {
-					final String contentType = messageHelper.getFileTypeMap().getContentType(attachment.getFilename());
-					if(contentType == null) {
-						throw new IllegalArgumentException("Cannot parse contentType from filename " + attachment.getFilename());
-					}
-
-					messageHelper.addInline(attachment.getFilename(), attachment.getResource(), contentType);
-				} else {
-					messageHelper.addAttachment(attachment.getFilename(), attachment.getResource());
-				}
-			}
 		}
 	}
 
