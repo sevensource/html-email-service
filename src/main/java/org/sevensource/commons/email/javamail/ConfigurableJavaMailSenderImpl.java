@@ -1,10 +1,11 @@
-package org.sevensource.commons.email.util;
+package org.sevensource.commons.email.javamail;
 
 import java.io.InputStream;
 
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 
+import org.sevensource.commons.email.util.SunMailSmtpMessageUtil;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
@@ -16,6 +17,10 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
  */
 public class ConfigurableJavaMailSenderImpl extends JavaMailSenderImpl {
 
+	public ConfigurableJavaMailSenderImpl() {
+		super();
+	}
+	
 	public ConfigurableJavaMailSenderImpl(Session session) {
 		super();
 		setSession(session);

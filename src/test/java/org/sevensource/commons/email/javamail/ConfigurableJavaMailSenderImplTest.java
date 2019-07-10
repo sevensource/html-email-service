@@ -1,4 +1,4 @@
-package org.sevensource.commons.email.util;
+package org.sevensource.commons.email.javamail;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -9,6 +9,7 @@ import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 
 import org.junit.Test;
+import org.sevensource.commons.email.javamail.ConfigurableJavaMailSenderImpl;
 
 public class ConfigurableJavaMailSenderImplTest {
 
