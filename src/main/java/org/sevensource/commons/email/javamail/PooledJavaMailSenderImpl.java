@@ -103,16 +103,9 @@ public class PooledJavaMailSenderImpl extends ConfigurableJavaMailSenderImpl {
 		}
 	}
 	
-	private ClosableSmtpConnection connectClosableTransport() throws MessagingException {
+	protected ClosableSmtpConnection connectClosableTransport() throws MessagingException {
 		try {
-			final ClosableSmtpConnection transport = smtpConnectionPool.borrowObject();
-				
-			if(! transport.isConnected()) {
-				Transport delegate = transport.getDelegate();
-				delegate.connect();	
-			}
-			
-			return transport;
+			return smtpConnectionPool.borrowObject();
 		} catch(MessagingException me) {
 			throw me;
 		} catch (Exception e) {
