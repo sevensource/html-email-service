@@ -5,32 +5,33 @@ import java.nio.charset.StandardCharsets;
 import javax.mail.Session;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 
-
-public abstract class AbstractJavaMailSenderConfiguration<T extends JavaMailSender> {
+@Configuration
+public abstract class AbstractJavaMailSenderConfiguration {
 
 	private static final String MAIL_SMTP_ALLOW8BITMIME = "mail.smtp.allow8bitmime";
 
 
 	@Bean
-	public T mailSender(Session session) {
+	public JavaMailSender mailSender(Session session) {
 		configureSession(session);
 
-		final T mailSender = getJavaMailSenderInstance(session);
+		final JavaMailSender mailSender = getJavaMailSenderInstance(session);
 		configureJavaMailSender(mailSender);
 		return mailSender;
 	}
 	
-	protected abstract T getJavaMailSenderInstance(Session session);
+	protected abstract JavaMailSender getJavaMailSenderInstance(Session session);
 	
 	/**
 	 * override to set custom properties on {@link JavaMailSender}
 	 * @param mailSender the sender
 	 */
-	protected void configureJavaMailSender(T mailSender) {
+	protected void configureJavaMailSender(JavaMailSender mailSender) {
 		if(mailSender instanceof JavaMailSenderImpl) {
 			((JavaMailSenderImpl)mailSender).setDefaultEncoding(StandardCharsets.UTF_8.name());	
 		}

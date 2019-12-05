@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-public class PooledJavaMailSenderConfiguration extends AbstractJavaMailSenderConfiguration<PooledJavaMailSenderImpl>{
+public class PooledJavaMailSenderConfiguration extends AbstractJavaMailSenderConfiguration {
 
 	@Autowired(required = true)
 	PooledJavaMailSenderPoolConfiguration pooledJavaMailSenderPoolConfiguration;

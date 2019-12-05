@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-public class ConfigurableJavaMailSenderConfiguration extends AbstractJavaMailSenderConfiguration<ConfigurableJavaMailSenderImpl>{
+public class ConfigurableJavaMailSenderConfiguration extends AbstractJavaMailSenderConfiguration {
 
 
 	@Override
